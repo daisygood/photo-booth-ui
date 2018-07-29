@@ -10,8 +10,8 @@ const HeaderComponent = ({ mobile }) => (
   <Segment
     textAlign='center'
     style={{
-      minHeight: 600,
-      padding: '1em 0em'
+      minHeight: mobile ? 200 : 400,
+      padding: mobile ? '0.5em 0em': '1em 0em'
     }}
     vertical
     className='Header'
@@ -20,10 +20,10 @@ const HeaderComponent = ({ mobile }) => (
       as='h1'
       content='NM Photo Booth'
       style={{
-        fontSize: mobile ? '2em' : '4em',
+        fontSize: mobile ? '1.5em' : '3em',
         fontWeight: 'normal',
         marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
+        marginTop: mobile ? '1em' : '2em',
       }}
     />
   </Segment>
