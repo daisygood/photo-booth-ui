@@ -18,7 +18,6 @@ const HeaderComponent = ({ mobile }) => (
   >
     <Header
       as='h1'
-      content='NM Photo Booth'
       style={{
         fontSize: mobile ? '1.5em' : '3em',
         fontWeight: 'normal',

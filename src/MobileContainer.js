@@ -1,7 +1,10 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { Responsive, Segment } from 'semantic-ui-react';
 import Header from './Header';
-import CardGroup from './Card';
+import Events from './Events';
+import ImageCardGroup from "./ImageCard";
+
 
 const MobileContainer = ({ children }) =>  (
   <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
@@ -12,22 +15,11 @@ const MobileContainer = ({ children }) =>  (
     >
       <div className="App">
         <Header mobile />
-        <CardGroup
-          content={[
-            'https://78.media.tumblr.com/8b6426ce12928809a8a525c31657a684/tumblr_p4gm2oy64z1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/8b6426ce12928809a8a525c31657a684/tumblr_p4gm2oy64z1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-            'https://78.media.tumblr.com/14aec703ea72aea6c56838ffb2d7acdc/tumblr_p4gn0iADlJ1x40y7so1_1280.gif',
-          ]}
-          tags={['NM', 'photo booth fun', 'some other tags']}
-          mobile
-        />
+        <div>
+          <Route exact path="/" component={Events} />
+          <Route exact path="/events" component={Events} />
+          <Route exact path="/events/:id" component={ImageCardGroup} />
+        </div>
       </div>
     </Segment>
     {children}
