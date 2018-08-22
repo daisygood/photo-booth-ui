@@ -3,12 +3,15 @@ import React from 'react';
 import DesktopContainer from './DesktopContainer';
 import MobileContainer from './MobileContainer';
 
-const ResponsiveContainer = ({ children }) => (
+const  ResponsiveContainer = (props) => (
   <div>
-    <DesktopContainer>{children}</DesktopContainer>
-    <MobileContainer>{children}</MobileContainer>
+    <DesktopContainer>{props.children}</DesktopContainer>
+    <MobileContainer>{props.children}</MobileContainer>
   </div>
 );
+
+
+
 
 export default ResponsiveContainer;
 

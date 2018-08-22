@@ -10,7 +10,7 @@ const HeaderComponent = ({ mobile }) => (
   <Segment
     textAlign='center'
     style={{
-      minHeight: mobile ? 200 : 400,
+      minHeight: mobile ? 150 : 300,
       padding: mobile ? '0.5em 0em': '1em 0em'
     }}
     vertical

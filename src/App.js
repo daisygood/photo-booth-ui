@@ -6,22 +6,6 @@ import './App.css';
 import client from './ApolloClient';
 import ResponsiveContainer from './ResponsiveContainer';
 
-const handleUploadImage = event => {
-  const data = new FormData();
-
-  Array.from(event.target.files).forEach(file => {
-    data.append('files', file);
-  });
-
-  axios.post('http://localhost:8080/api/upload', data)
-    .then(response => {
-      console.log(response);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-};
-
 const App = () => {
   return (
     <ApolloProvider client={client}>

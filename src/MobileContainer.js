@@ -4,6 +4,7 @@ import { Responsive, Segment } from 'semantic-ui-react';
 import Header from './Header';
 import Events from './Events';
 import ImageCardGroup from "./ImageCard";
+import Display from './Display';
 
 
 const MobileContainer = ({ children }) =>  (
@@ -16,9 +17,10 @@ const MobileContainer = ({ children }) =>  (
       <div className="App">
         <Header mobile />
         <div>
-          <Route exact path="/" component={Events} />
-          <Route exact path="/events" component={Events} />
-          <Route exact path="/events/:id" component={ImageCardGroup} />
+          <Route exact path="/" component={() => <Events mobile />} />
+          <Route exact path="/events" component={() => <Events mobile />} />
+          <Route exact path="/events/:id" component={() => <ImageCardGroup mobile />} />
+          <Route exact path="/display" component={() => <Display mobile />} />
         </div>
       </div>
     </Segment>
