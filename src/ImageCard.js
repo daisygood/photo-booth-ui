@@ -41,17 +41,18 @@ class ImageCardGroup extends React.Component {
     return (
       <div style={{
         margin: '0 auto',
-        padding: mobile ? '25px 50px' : '50px 100px'
+        padding: mobile ? '25px 50px' : '50px 100px',
+        minHeight: mobile ? '500px' : '1000px'
       }}>
         <Card.Group itemsPerRow={mobile ? 2 : 4}>
           {
             this.state.content.map(url => (
               <Card key={Math.random()}>
-                <a href={url}><Image src={url}/></a>
+                <a href={url}><Image src={url} /></a>
                 <Card.Content extra style={{
                   padding: mobile ? '0.5em 0.8em' : ''
                 }}>
-                  <div style={{float: 'left'}}>
+                  <div style={{ float: 'left' }}>
                     <p style={{
                       fontSize: mobile ? '6px' : '11px',
                       lineHeight: 0,
@@ -61,18 +62,18 @@ class ImageCardGroup extends React.Component {
                       }
                     </p>
                   </div>
-                  <div style={{float: 'right', marginTop: mobile ? '0.5em' : '1em'}}>
+                  <div style={{ float: 'right', marginTop: mobile ? '0.5em' : '1em' }}>
                     <a href='https://twitter.com/NM_News' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='twitter square'/>
+                      <Icon link size={mobile ? 'small' : 'large'} name='twitter square' />
                     </a>
                     <a href='https://www.facebook.com/northwesternmutual' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='facebook square'/>
+                      <Icon link size={mobile ? 'small' : 'large'} name='facebook square' />
                     </a>
                     <a href='https://www.instagram.com/northwesternmutual/' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='send'/>
+                      <Icon link size={mobile ? 'small' : 'large'} name='send' />
                     </a>
                     <a href='https://www.linkedin.com/company/northwestern-mutual' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='linkedin'/>
+                      <Icon link size={mobile ? 'small' : 'large'} name='linkedin' />
                     </a>
                   </div>
                 </Card.Content>

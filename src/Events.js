@@ -33,7 +33,7 @@ class Events extends React.Component {
     )
   };
 
-  render () {
+  render() {
     const { data, mobile } = this.props;
     if (data.loading) {
       return (<Loader active inline='centered' />)
@@ -42,9 +42,10 @@ class Events extends React.Component {
     return (
       <div style={{
         margin: '0 auto',
-        padding: mobile ? '25px 50px' : '50px 100px'
+        padding: mobile ? '25px 50px' : '50px 100px',
+        minHeight: mobile ? '200px' : '400px'
       }}>
-        <Card.Group itemsPerRow={ mobile ? 2 : 4}>
+        <Card.Group itemsPerRow={mobile ? 2 : 4}>
           {
             data.allEvents.map(event => (
               <Card
@@ -52,7 +53,7 @@ class Events extends React.Component {
                 raised
               >
                 <Link to={"/events/" + event.s3Folder}>
-                  <a href={''}><Image src={event.logo}/></a>
+                  <a href={''}><Image src={event.logo} /></a>
                 </Link>
                 <Card.Content extra style={{
                   padding: mobile ? '0.5em 0.8em' : ''

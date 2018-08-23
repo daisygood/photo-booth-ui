@@ -1,13 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Responsive, Segment } from 'semantic-ui-react';
-import Header from './Header';
 import Events from './Events';
 import ImageCardGroup from "./ImageCard";
 import Display from './Display';
 
-
-const MobileContainer = ({ children }) =>  (
+const MobileContainer = ({ children }) => (
   <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
     <Segment
       textAlign='center'
@@ -15,7 +13,6 @@ const MobileContainer = ({ children }) =>  (
       vertical
     >
       <div className="App">
-        <Header mobile />
         <div>
           <Route exact path="/" component={() => <Events mobile />} />
           <Route exact path="/events" component={() => <Events mobile />} />
