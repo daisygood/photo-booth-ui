@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import StackGrid, {transitions} from 'react-stack-grid';
 import { Image, Dropdown, Grid } from 'semantic-ui-react'
 import gql from "graphql-tag";
 import {graphql} from "react-apollo/index";

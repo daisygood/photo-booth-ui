@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import client from './ApolloClient';
 import ResponsiveContainer from './ResponsiveContainer';
