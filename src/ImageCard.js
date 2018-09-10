@@ -1,14 +1,23 @@
 import React from 'react';
 import axios from 'axios';
-import { Card, Icon, Image, Loader } from 'semantic-ui-react';
+import { Card, Icon, Image, Loader, Header, Modal, Form } from 'semantic-ui-react';
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import API_URL from './config/api';
 
+const shareText = "Check out this picture";
+
 class ImageCardGroup extends React.Component {
+
   state = {
     content: [],
+    open: false,
+    number: undefined,
+    url: undefined
   };
+
+  show = () => this.setState({ open: true });
+  close = () => this.setState({ open: false });
 
   componentDidMount() {
     const url = `${API_URL}/list/folder/${this.props.match.params.id}`;
@@ -21,28 +30,63 @@ class ImageCardGroup extends React.Component {
       })
   };
 
+  setLink =  url => this.setState({ url: url });
+
+  faceBookOnClick = (url, hashTag) => {
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&hashtag=%23' + hashTag, 'facebook-popup', 'height=350,width=600');
+  };
+
+  twitterOnClick = (url, hashTag) => {
+    window.open('https://twitter.com/intent/tweet?text='+ shareText + ' ' + url + '&hashtags=' + hashTag, 'twitter-popup', 'height=350,width=600');
+  };
+
+  googleOnClick = url => {
+    window.open('https://plus.google.com/share?url=' + url, 'google-plus-popup', 'height=350,width=600');
+
+  };
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = () => {
+    debugger
+    const url = `${API_URL}/send`;
+    const numberPattern = /\d+/g;
+
+    const phoneNumber = this.state.number.match( numberPattern ).join('');
+    const data = {
+      "number": '+1' + phoneNumber,
+      "url": this.state.url,
+    };
+    axios.post(url, data)
+      .then(() => {
+        this.setState({ number: undefined, url: undefined});
+        this.close();
+      })
+      .catch(err => console.error(err));
+  };
+
   render() {
-    const { mobile, content, loading, allEvents } = this.props;
+
+    const { mobile, loading, allEvents } = this.props;
     if (loading) {
-      return (<Loader active inline='centered' />)
+      return (
+        <Loader active inline='centered' />
+      )
     }
 
     let tags = [];
     let tagHTML = '';
     if (allEvents[0] && allEvents[0].tags) {
       tags = allEvents[0].tags.split(',');
-      console.log(tags);
       tags.forEach(tag => {
         tagHTML += '#' + tag.trim() + ' ';
       });
     }
-
-
     return (
       <div style={{
         margin: '0 auto',
         padding: mobile ? '25px 50px' : '50px 100px',
-        minHeight: mobile ? '500px' : '1000px'
+        minHeight: mobile ? '600px' : '1000px'
       }}>
         <Card.Group itemsPerRow={mobile ? 2 : 4}>
           {
@@ -51,10 +95,10 @@ class ImageCardGroup extends React.Component {
                 <a href={url}><Image src={url} /></a>
                 <Card.Content extra style={{
                   padding: mobile ? '0.5em 0.8em' : ''
-                }}>
+                }} description>
                   <div style={{ float: 'left' }}>
                     <p style={{
-                      fontSize: mobile ? '6px' : '11px',
+                      fontSize: mobile ? '10px' : '15px',
                       lineHeight: 0,
                     }}>
                       {
@@ -62,18 +106,26 @@ class ImageCardGroup extends React.Component {
                       }
                     </p>
                   </div>
-                  <div style={{ float: 'right', marginTop: mobile ? '0.5em' : '1em' }}>
-                    <a href='https://twitter.com/NM_News' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='twitter square' />
+                </Card.Content>
+                <Card.Content>
+                  <div>
+                    <a
+                      onClick={() => this.twitterOnClick(url, tags)}>
+                      <Icon link size={mobile ? 'large' : 'big'} name='twitter' style={{color: '#1DA1F2'}} />
                     </a>
-                    <a href='https://www.facebook.com/northwesternmutual' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='facebook square' />
+                    <a
+                      onClick={() => this.faceBookOnClick(url, tags[0])}>
+                      <Icon link size={mobile ? 'large' : 'big'} name='facebook' style={{color: '#3b5998'}}/>
                     </a>
-                    <a href='https://www.instagram.com/northwesternmutual/' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='send' />
+                    <a
+                      onClick={() => this.googleOnClick(url)}>
+                      <Icon link size={mobile ? 'large' : 'big'} name='google plus' style={{color: '#DB4437'}}/>
                     </a>
-                    <a href='https://www.linkedin.com/company/northwestern-mutual' target='_blank'>
-                      <Icon link size={mobile ? 'small' : 'large'} name='linkedin' />
+                    <a href={url} download>
+                      <Icon link size={mobile ? 'large' : 'big'} name='cloud download' color='teal'/>
+                    </a>
+                    <a onClick={() => { this.show(); this.setLink(url); }}>
+                      <Icon link size={mobile ? 'large' : 'big'} name='discussions ' color='green'/>
                     </a>
                   </div>
                 </Card.Content>
@@ -81,6 +133,23 @@ class ImageCardGroup extends React.Component {
             ))
           }
         </Card.Group>
+        <Modal
+          open={this.state.open}
+          onClose={this.close}
+          basic
+
+        >
+          <Header icon='phone' content='Send via Text Message' />
+          <Modal.Content>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group>
+                <Form.Input value={'USA: +1'} width={mobile ? null : 2} readOnly />
+                <Form.Input required={true} placeholder='xxxxxxxxx' name='number' value={this.state.number} onChange={this.handleChange} />
+                <Form.Button positive content='Submit' style={{float: 'right', 'marginBottom': '10px'}} />
+              </Form.Group>
+            </Form>
+          </Modal.Content>
+        </Modal>
       </div>
     );
   }

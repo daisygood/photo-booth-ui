@@ -6,7 +6,7 @@ import Events from './Events';
 import Display from './Display';
 
 const DesktopContainer = ({ children }) => (
-  <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+  <Responsive minWidth={Responsive.onlyComputer.minWidth}>
     <Segment
       textAlign='center'
       style={{ minHeight: 700, padding: '0em' }}

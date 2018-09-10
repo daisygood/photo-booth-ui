@@ -6,7 +6,7 @@ import ImageCardGroup from "./ImageCard";
 import Display from './Display';
 
 const MobileContainer = ({ children }) => (
-  <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
+  <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
     <Segment
       textAlign='center'
       style={{ minHeight: 350, padding: '0em' }}
@@ -16,8 +16,9 @@ const MobileContainer = ({ children }) => (
         <div>
           <Route exact path="/" component={() => <Events mobile />} />
           <Route exact path="/events" component={() => <Events mobile />} />
-          <Route exact path="/events/:id" component={() => <ImageCardGroup mobile />} />
+          <Route exact path="/events/:id" component={(props) => <ImageCardGroup mobile {...props} />} />
           <Route exact path="/display" component={() => <Display mobile />} />
+
         </div>
       </div>
     </Segment>
