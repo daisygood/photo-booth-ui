@@ -30,14 +30,14 @@ class ImageCardGroup extends React.Component {
       })
   };
 
-  setLink =  url => this.setState({ url: url });
+  setLink = url => this.setState({ url: url });
 
   faceBookOnClick = (url, hashTag) => {
     window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&hashtag=%23' + hashTag, 'facebook-popup', 'height=350,width=600');
   };
 
   twitterOnClick = (url, hashTag) => {
-    window.open('https://twitter.com/intent/tweet?text='+ shareText + ' ' + url + '&hashtags=' + hashTag, 'twitter-popup', 'height=350,width=600');
+    window.open('https://twitter.com/intent/tweet?text=' + shareText + ' ' + url + '&hashtags=' + hashTag, 'twitter-popup', 'height=350,width=600');
   };
 
   googleOnClick = url => {
@@ -52,14 +52,14 @@ class ImageCardGroup extends React.Component {
     const url = `${API_URL}/send`;
     const numberPattern = /\d+/g;
 
-    const phoneNumber = this.state.number.match( numberPattern ).join('');
+    const phoneNumber = this.state.number.match(numberPattern).join('');
     const data = {
       "number": '+1' + phoneNumber,
       "url": this.state.url,
     };
     axios.post(url, data)
       .then(() => {
-        this.setState({ number: undefined, url: undefined});
+        this.setState({ number: undefined, url: undefined });
         this.close();
       })
       .catch(err => console.error(err));
@@ -96,10 +96,9 @@ class ImageCardGroup extends React.Component {
                 <Card.Content extra style={{
                   padding: mobile ? '0.5em 0.8em' : ''
                 }} description>
-                  <div style={{ float: 'left' }}>
+                  <div style={{ textAlign: 'left' }}>
                     <p style={{
-                      fontSize: mobile ? '10px' : '15px',
-                      lineHeight: 0,
+                      fontSize: mobile ? '0.8em' : '1em',
                     }}>
                       {
                         tagHTML
@@ -111,21 +110,21 @@ class ImageCardGroup extends React.Component {
                   <div>
                     <a
                       onClick={() => this.twitterOnClick(url, tags)}>
-                      <Icon link size={mobile ? 'large' : 'big'} name='twitter' style={{color: '#1DA1F2'}} />
+                      <Icon link size={mobile ? 'large' : 'big'} name='twitter' style={{ color: '#1DA1F2' }} />
                     </a>
                     <a
                       onClick={() => this.faceBookOnClick(url, tags[0])}>
-                      <Icon link size={mobile ? 'large' : 'big'} name='facebook' style={{color: '#3b5998'}}/>
+                      <Icon link size={mobile ? 'large' : 'big'} name='facebook' style={{ color: '#3b5998' }} />
                     </a>
                     <a
                       onClick={() => this.googleOnClick(url)}>
-                      <Icon link size={mobile ? 'large' : 'big'} name='google plus' style={{color: '#DB4437'}}/>
+                      <Icon link size={mobile ? 'large' : 'big'} name='google plus' style={{ color: '#DB4437' }} />
                     </a>
                     <a href={url} download>
-                      <Icon link size={mobile ? 'large' : 'big'} name='cloud download' color='teal'/>
+                      <Icon link size={mobile ? 'large' : 'big'} name='cloud download' color='teal' />
                     </a>
                     <a onClick={() => { this.show(); this.setLink(url); }}>
-                      <Icon link size={mobile ? 'large' : 'big'} name='discussions ' color='green'/>
+                      <Icon link size={mobile ? 'large' : 'big'} name='discussions ' color='green' />
                     </a>
                   </div>
                 </Card.Content>
@@ -145,7 +144,7 @@ class ImageCardGroup extends React.Component {
               <Form.Group>
                 <Form.Input value={'USA: +1'} width={mobile ? null : 2} readOnly />
                 <Form.Input required={true} placeholder='xxxxxxxxx' name='number' value={this.state.number} onChange={this.handleChange} />
-                <Form.Button positive content='Submit' style={{float: 'right', 'marginBottom': '10px'}} />
+                <Form.Button positive content='Submit' style={{ float: 'right', 'marginBottom': '10px' }} />
               </Form.Group>
             </Form>
           </Modal.Content>
